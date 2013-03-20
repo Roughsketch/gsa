@@ -2,6 +2,7 @@ package exstrings
 
 import (
 	"bytes"
+	"strconv"
 	"strings"
 )
 
@@ -47,4 +48,28 @@ func Sort(s []string, callback func(a, b string) int) []string {
 		}
 	}
 	return s
+}
+
+func Remove(str, delim string) string {
+	for i := 0; i < len(delim); i++ {
+		str = strings.Replace(str, delim[i:i+1], "", -1)
+	}
+	return str
+}
+
+func Bytetostring(b byte) (str string) {
+	n1 := b & 0xF
+	n2 := b & (0xF << 4) >> 4
+
+	if n2 >= 0 && n2 <= 9 {
+		str = string(n2 + '0')
+	} else {
+		str = strconv.FormatInt(int64(n2), 16)
+	}
+	if n1 >= 0 && n1 <= 9 {
+		str += string(n1 + '0')
+	} else {
+		str += strconv.FormatInt(int64(n1), 16)
+	}
+	return strings.ToUpper(str)
 }
