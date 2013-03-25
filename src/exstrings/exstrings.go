@@ -2,6 +2,7 @@ package exstrings
 
 import (
 	"bytes"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -72,4 +73,25 @@ func Bytetostring(b byte) (str string) {
 		str += strconv.FormatInt(int64(n1), 16)
 	}
 	return strings.ToUpper(str)
+}
+
+func Compress(str, find, rep string) string {
+	//	Make sure everything is evenly spaced
+	for ; strings.Count(str, find) > 0 ; {
+		str = strings.Replace(str, find, rep, -1)
+	}
+
+	return str
+}
+
+func Stripquotes(s string) string {
+	reg := regexp.MustCompile("\".*\"")
+
+	return reg.ReplaceAllString(s, "")
+}
+
+func Countregex(s, r string) int {
+	reg := regexp.MustCompile(r)
+
+	return len(reg.FindAllString(s, -1))
 }

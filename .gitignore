@@ -166,6 +166,5 @@ pip-log.txt
 *.S
 *.asm
 *.log
-*.smc
 *.txt
 *.func
